@@ -1,0 +1,8 @@
+{
+    "eslint.workingDirectories": [ "./app", "./sync" ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "testToggle.testNameRegExp": "(\\.|_|-)+spec$",
+    "testToggle.excludePattern": "node_modules/"
+}
