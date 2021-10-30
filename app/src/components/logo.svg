@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="50"
+   viewBox="0 0 26.458333 13.229167"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="logo.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1165"
+     inkscape:window-height="666"
+     id="namedview11"
+     showgrid="false"
+     inkscape:zoom="3.7"
+     inkscape:cx="-1.621622"
+     inkscape:cy="25"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg8" />
+  <defs
+     id="defs2">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter829"
+       x="-0.0036047913"
+       width="1.0072096"
+       y="-0.0035984306"
+       height="1.0071969">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.051517022"
+         id="feGaussianBlur831" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter833"
+       x="-0.0045860553"
+       width="1.0091721"
+       y="-0.0050253295"
+       height="1.0100507">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.07202901"
+         id="feGaussianBlur835" />
+    </filter>
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="flowRoot10"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:39.99960327px;line-height:1.25;font-family:Anton;-inkscape-font-specification:'Anton, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#1890ff;fill-opacity:1;stroke:none;stroke-width:0.71037847;filter:url(#filter829)"
+     transform="matrix(0.36180109,0,0,0.38342072,-30.122624,-51.94399)"
+     aria-label="TA">
+    <path
+       style="stroke-width:0.71037847;fill:#1890ff;fill-opacity:1"
+       id="path4566"
+       d="m 87.337377,169.97817 v -27.75972 h -4.079959 v -6.59994 h 15.039851 v 6.59994 h -4.07996 v 27.75972 z" />
+    <path
+       style="stroke-width:0.71037847;fill:#1890ff;fill-opacity:1"
+       id="path4568"
+       d="m 99.316634,169.97817 3.319966,-34.35966 h 11.63989 l 3.27996,34.35966 h -6.51993 l -0.48,-5.55994 h -4.15996 l -0.39999,5.55994 z m 7.599926,-11.03989 h 3.11997 l -1.51999,-17.47982 h -0.31999 z" />
+  </g>
+  <g
+     id="flowRoot10-2"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:39.99960327px;line-height:1.25;font-family:Anton;-inkscape-font-specification:'Anton, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.71037847;opacity:1;filter:url(#filter833)"
+     transform="matrix(0.36180109,0,0,0.38342072,-17.345663,-51.98361)"
+     aria-label="XX">
+    <path
+       style="stroke-width:0.71037847"
+       id="path4561"
+       d="m 83.377417,169.97817 3.679963,-18.23982 -2.919971,-16.15984 h 6.719934 l 1.799982,11.83989 1.559984,-11.83989 h 6.759931 l -2.959968,16.15984 3.679968,18.23982 h -6.959936 l -2.159979,-13.43986 -2.199978,13.43986 z" />
+    <path
+       style="stroke-width:0.71037847"
+       id="path4563"
+       d="m 102.75222,169.97817 3.67997,-18.23982 -2.91997,-16.15984 h 6.71993 l 1.79998,11.83989 1.55999,-11.83989 h 6.75993 l -2.95997,16.15984 3.67996,18.23982 h -6.95993 l -2.15998,-13.43986 -2.19998,13.43986 z" />
+  </g>
+</svg>
