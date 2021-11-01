@@ -31,6 +31,7 @@ export const Welcome: React.FC = () => {
   return (
     <Wrapper>
       <StyledSpin />
+      Will redirect you soon...
     </Wrapper>
   );
 };

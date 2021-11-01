@@ -1,10 +1,11 @@
 version: "3.7"
 services:
-  app:
+
+  sync:
     image: node
     volumes:
-      - "./app:/mnt/app"
-    working_dir: "/mnt/app"
+      - "./sync:/mnt/sync"
+    working_dir: "/mnt/sync"
     environment:
       PORT: '3000'
     entrypoint: "/bin/bash -c"
@@ -14,32 +15,20 @@ services:
           echo '⛔ `npm start` failed, but the container is running...' && \
           tail -f /dev/null \
         )
-    ports: [ 3000:3000 ]
 
-  auth:
+  app:
     image: node
     volumes:
-      - './auth:/mnt/auth'
-    working_dir: '/mnt/auth'
+      - "./app:/mnt/app"
+    working_dir: "/mnt/app"
     environment:
-      PORT: '5000'
-      SECURE_KEY: 'D9C01532BD25898DDFB6A04FEC7EB84948B1F4F4E2E73199F221AD3EED1A99C5,C63BBC1884AD649D63607D8ACCE91AE9530DB7903FC377973E922E47A93C82E0'
-      AUTH_URL: ${AUTH_URL:-https://auth.lvh.me:433}
-      TRACKER_APP_URL: ${TRACKER_APP_URL:-https://tracker.lvh.me}
-    entrypoint: '/bin/bash -c'
-    command:
-      - |
-        npm install
-        npm run start
-    ports: [ 19229:19229, 5000:5000 ]
-
-  sync:
-    image: node
-    volumes:
-      - "./sync:/mnt/sync"
-    working_dir: "/mnt/sync"
-    environment:
-      PORT: '5000'
+      PORT: '3000'
+      HTTPS: 'false'                                                                                                                                                                                                                                                            
+      REACT_APP_AUTH_URL: ${AUTH_URL:-https://auth.lvh.me:3002}
+      REACT_APP_AUTH_CLIENT_ID: 'fooclient'
+      REACT_APP_AUTH_AUDIENCE: 'not-used-here'
+      REACT_APP_URL: ${SPA_URL:-https://app.lvh.me:3001}
+      REACT_APP_API_URL: ${API_URL:-https://api.lvh.me:3003}
     entrypoint: "/bin/bash -c"
     command:
       - |
@@ -47,4 +36,32 @@ services:
           echo '⛔ `npm start` failed, but the container is running...' && \
           tail -f /dev/null \
         )
-    ports: [ 4000:4000 ]
+
+  auth:
+    image: node
+    volumes:
+      - './auth:/mnt/auth'
+    working_dir: '/mnt/auth'
+    environment:
+      PORT: '3000'
+      SECURE_KEY: 'D9C01532BD25898DDFB6A04FEC7EB84948B1F4F4E2E73199F221AD3EED1A99C5,C63BBC1884AD649D63607D8ACCE91AE9530DB7903FC377973E922E47A93C82E0'
+      AUTH_URL: ${AUTH_URL:-https://auth.lvh.me:3002}
+      APP_URL: ${APP_URL:-https://app.lvh.me:3001}
+      # Without this, it shows "no matching state in storage"
+      TZ: Europe/London
+    entrypoint: '/bin/bash -c'
+    command:
+      - |
+        npm install
+        npm run start
+    ports: [ 19229:19229 ]
+
+  getaway:
+    image: nginx
+    volumes:
+      - './getaway/nginx.conf:/etc/nginx/nginx.conf'
+      - './getaway/common.conf:/etc/nginx/common.conf'
+      - './getaway/conf.d:/etc/nginx/conf.d'
+      - './getaway/html:/usr/share/nginx/html'
+      - './getaway/certs:/etc/nginx/certs'
+    ports: [ '3000:80', '443:443', '3001-3009:3001-3009']

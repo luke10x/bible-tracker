@@ -22,23 +22,23 @@ console.log('auth url', process.env.AUTH_URL);
 const startAuth = () => {
 
   console.log('auth awake');
+  const clientSettings = {
+    client_id: 'fooclient',
+    redirect_uris: [
+      `${process.env.APP_URL}/signin-callback.html`,
+      `${process.env.APP_URL}/silent-renew.html`
+    ],
+    post_logout_redirect_uris: [`${process.env.APP_URL}`],
+    response_types: ['code'],
+    grant_types: ['authorization_code', 'refresh_token'],
+    token_endpoint_auth_method: 'none',
+  };
+  console.log('client settings', clientSettings);
 
   // Don't miss trailing slash here !!!
   const oidc = new Provider(`${process.env.AUTH_URL}/`, {
     // adapter: RedisAdapter,
-    clients: [
-      {
-        client_id: 'fooclient',
-        redirect_uris: [
-          `${process.env.SPA_URL}/signin-callback.html`,
-          `${process.env.SPA_URL}/silent-renew.html`
-        ],
-        post_logout_redirect_uris: [`${process.env.SPA_URL}`],
-        response_types: ['code'],
-        grant_types: ['authorization_code', 'refresh_token'],
-        token_endpoint_auth_method: 'none',
-      },
-    ],
+    clients: [ clientSettings ],
     jwks,
 
     // oidc-provider only looks up the accounts by their ID when it has to read the claims,
@@ -74,9 +74,8 @@ const startAuth = () => {
       revocation: { enabled: true },
     },
     meta: {
-      authorization: 'fdsfdssuka'
+      authorization: 'whateveritis'
     }
-    
   });
 
   oidc.proxy = true;
@@ -194,12 +193,6 @@ const startAuth = () => {
 
   // express listen
   expressApp.listen(process.env.PORT);
-
-
-  // const mount = require('koa-mount');
-  // const prefix = '/oidc';
-  // koaApp.use(mount(prefix, oidc.app));
-
 }
 
 setTimeout(startAuth, 1000);
