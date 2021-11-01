@@ -57,9 +57,6 @@ export const authenticated = (
     };
 
     useEffect(() => {
-      // if (user) {
-      //   return () => null;
-      // }
       authService.getUser().then((user) => {
         if (user === null) {
           window.location.replace('/');

@@ -6,6 +6,7 @@ import { Public } from '../components/Public';
 import { Welcome } from '../components/auth/Welcome';
 import { AuthProvider } from '../providers/authProvider';
 import { SilentRenew } from '../components/auth/SilentRenew';
+import { Dashboard } from '../tracker/components/Dashboard';
 
 class App extends React.Component {
   public render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
           <BrowserRouter basename="/">
             <Switch>
               <Route exact path="/tasks" component={Tasks} />
+              <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/signin-callback.html" component={Welcome} />
               <Route exact path="/silent-renew.html" component={SilentRenew} />
               <Route exact path="/" component={Public} />

@@ -11,5 +11,7 @@ export class Constants {
 
   public static audience = `${process.env.REACT_APP_AUTH_AUDIENCE}`;
 
+  public static afterWelcomeRoute = '/dashboard';
+
   public static apiRoot = `${process.env.REACT_APP_API_URL}`;
 }

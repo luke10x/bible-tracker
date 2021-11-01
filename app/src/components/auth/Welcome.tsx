@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import { Constants } from '../../helpers/Constants';
 import { AuthContext } from '../../providers/authProvider';
 import AuthService from '../../services/authService';
 
@@ -8,11 +9,6 @@ const Wrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
-`;
-
-const StyledSpin = styled.div`
-  width: 100px;
-  background: red;
 `;
 
 export const Welcome: React.FC = () => {
@@ -24,14 +20,9 @@ export const Welcome: React.FC = () => {
 
   useEffect(() => {
     authService.signinRedirectCallback().then((_user) => {
-      window.location.replace('/tasks');
+      window.location.replace(Constants.afterWelcomeRoute);
     });
   }, [authService]);
 
-  return (
-    <Wrapper>
-      <StyledSpin />
-      Will redirect you soon...
-    </Wrapper>
-  );
+  return <Wrapper>Welcome and redirecting...</Wrapper>;
 };
