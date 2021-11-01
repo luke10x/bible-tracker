@@ -43,7 +43,9 @@ const StyledSpin = styled.div`
   background: red;
 `;
 
-export function authenticated(WrappedComponent: any): React.FC {
+export const authenticated = (
+  WrappedComponent: React.ComponentType,
+): React.FC => {
   return () => {
     const authService: AuthService = useContext(AuthContext);
     const [user, setUser] = useState<User>();
@@ -66,7 +68,7 @@ export function authenticated(WrappedComponent: any): React.FC {
         }
         return user;
       });
-    });
+    }, [user?.id_token]);
 
     if (!user) {
       return (
@@ -108,4 +110,4 @@ export function authenticated(WrappedComponent: any): React.FC {
       </Wrapper>
     );
   };
-}
+};

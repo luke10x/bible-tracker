@@ -5,7 +5,7 @@ import { NewTaskForm } from './NewTaskForm';
 import { TaskList } from './TaskList';
 import { TaskProvider } from './TaskContext';
 import { authenticated } from '../auth/authenticated';
-import { DailyHeader, SectionHeader } from './headers';
+import { DailyHeader } from './headers';
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,24 +22,13 @@ const Footer = styled.div`
 
 export const Inner: React.FC = () => {
   const today = moment();
-  const [activeDay, setActiveDay] = useState<moment.Moment>(today);
-
-  const handleDaySelect = (selectedDay: moment.Moment) => {
-    setActiveDay(
-      selectedDay.clone().set({
-        hour: 0,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-      }),
-    );
-  };
+  const [activeDay] = useState<moment.Moment>(today);
 
   return (
     <TaskProvider>
       <Wrapper>
         <Content>
-          <DailyHeader activeDay={activeDay} onDaySelect={handleDaySelect} />
+          <DailyHeader />
           <TaskList activeDay={activeDay} />
         </Content>
         <Footer>

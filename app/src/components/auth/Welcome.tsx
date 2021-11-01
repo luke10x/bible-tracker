@@ -23,7 +23,7 @@ export const Welcome: React.FC = () => {
   const authService: AuthService = useContext(AuthContext);
 
   useEffect(() => {
-    authService.signinRedirectCallback().then((user) => {
+    authService.signinRedirectCallback().then((_user) => {
       window.location.replace('/tasks');
     });
   }, [authService]);

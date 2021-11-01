@@ -11,6 +11,7 @@ export class ApiService {
 
   // TODO: Convert callbacks to promises
   // https://zellwk.com/blog/converting-callbacks-to-promises/
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public callApi(method: string, endpoint: string, payload: any): Promise<any> {
     return this.authService.getUser().then((user) => {
       if (user && user.access_token) {
@@ -51,6 +52,7 @@ export class ApiService {
     token: string,
     method: string,
     endpoint: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     payload: any,
   ) {
     const headers = {

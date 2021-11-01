@@ -1,4 +1,4 @@
-import { Log, UserManager, WebStorageStateStore } from 'oidc-client';
+import { Log, User, UserManager, WebStorageStateStore } from 'oidc-client';
 
 import { Constants } from '../helpers/Constants';
 
@@ -57,9 +57,9 @@ export default class AuthService {
   public isAuthenticated = () => {
     const authUrl = process.env.REACT_APP_AUTH_URL;
     const identityClientId = process.env.REACT_APP_IDENTITY_CLIENT_ID;
-    const item: any = sessionStorage.getItem(
+    const item: string = sessionStorage.getItem(
       `oidc.user:${authUrl}:${identityClientId}`,
-    );
+    ) as string;
     if (!item) {
       return false;
     }
@@ -71,7 +71,7 @@ export default class AuthService {
   public signinSilent() {
     this.userManager
       .signinSilent()
-      .then((user: any) => {
+      .then((user?: User) => {
         // eslint-disable-next-line no-console
         console.log('silent signed in', user);
       })

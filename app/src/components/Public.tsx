@@ -33,14 +33,9 @@ export const Public: React.FC = () => {
       <Logo src={logo} alt="logo" />
       <Content>
         <p>TODO software</p>
-        <button
-          // type="primary"
-          // icon={<LoginOutlined />}
-          // loading={isLoading}
-          onClick={handleLoginButton}
-        >
-          Go to Login screen
-        </button>
+        {!isLoading && (
+          <button onClick={handleLoginButton}>Go to Login screen</button>
+        )}
       </Content>
     </Wrapper>
   );

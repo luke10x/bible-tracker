@@ -31,39 +31,21 @@ const TextInput = styled.input`
   min-width: 50px;
 `;
 
-const AddButton = styled.button`
-  flex-shrink: 0;
-  flex-grow: 0;
-  height: 60px;
-`;
-
-const IconWrapper = styled.span`
-  padding-right: 5px;
-`;
-
 type FormMode = 'task' | 'note';
-
-interface SelectBeforeProps {
-  defaultValue: FormMode;
-  onChange: (value: FormMode) => void;
-}
-
-const SelectBefore: React.FC<SelectBeforeProps> = (
-  props: SelectBeforeProps,
-) => <span>it was select here</span>;
 
 type NewTaskReq = Event;
 
 export const NewTaskForm: React.FC = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const [mode, setMode] = useState<FormMode>('task');
+  const [mode] = useState<FormMode>('task');
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const postNewTask = (apiReq: NewTaskReq): Promise<any> => {
     const apiService = new ApiService();
     return apiService
       .callApi('post', '/events', apiReq)
-      .then((data) => {
+      .then((_data) => {
         console.log(
           'Api return successfully data, check in section - Api response',
         );
@@ -104,11 +86,6 @@ export const NewTaskForm: React.FC = () => {
   const handleTitleInput = (evt: FormEvent<HTMLInputElement>) => {
     const value = (evt.target && (evt.target as HTMLInputElement).value) || '';
     setInputText(value);
-  };
-
-  const handleSelectMode = (modeValue: FormMode) => {
-    console.log('mode swithd', modeValue);
-    setMode(modeValue);
   };
 
   const placeholder =

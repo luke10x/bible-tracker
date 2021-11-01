@@ -14,7 +14,7 @@ export const TaskContext = React.createContext<TaskContextProps>({
   setDateDiff: (_: number) => null,
 });
 
-export const TaskProvider: React.FC = (props: any) => {
+export const TaskProvider: React.FC = ({ children }) => {
   const [lastEventId, setLastEventId] = useState<string>('stri');
   const [dateDiff, setDateDiff] = useState<number>(0);
   const ctxValue: TaskContextProps = {
@@ -25,8 +25,6 @@ export const TaskProvider: React.FC = (props: any) => {
   };
 
   return (
-    <TaskContext.Provider value={ctxValue}>
-      {props.children}
-    </TaskContext.Provider>
+    <TaskContext.Provider value={ctxValue}>{children}</TaskContext.Provider>
   );
 };

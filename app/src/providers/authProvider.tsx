@@ -6,10 +6,8 @@ export const AuthContext = React.createContext<AuthService>(authService);
 
 export const AuthConsumer = AuthContext.Consumer;
 
-export const AuthProvider: React.FC = (props: any) => {
+export const AuthProvider: React.FC = ({ children }) => {
   return (
-    <AuthContext.Provider value={authService}>
-      {props.children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authService}>{children}</AuthContext.Provider>
   );
 };
