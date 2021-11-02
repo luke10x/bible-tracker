@@ -1,37 +1,11 @@
 /* eslint-disable react/display-name */
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import logo from '../logo.svg';
 import AuthService from '../../services/authService';
 import { AuthContext } from '../../providers/authProvider';
 import { User } from 'oidc-client';
+import { UserLayout } from '../../containers/UserLayout';
 
-const Logo = styled.img`
-  width: 100px;
-  flex-grow: 0;
-`;
-const Userinfo = styled.div`
-  flex-grow: 10;
-  justify-content: flex-end;
-
-  display: flex;
-  align-items: baseline;
-  p {
-    padding: 0 20px;
-  }
-`;
-const Wrapper = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-const Header = styled.div`
-  flex: 1 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-`;
 const SpinWrapper = styled.div`
   height: 150px;
   display: flex;
@@ -89,22 +63,13 @@ export const authenticated = (
     };
 
     return (
-      <Wrapper>
-        <div style={{ flexShrink: 0 }}>
-          <Header>
-            <Logo src={logo} alt="logo" />
-            <Userinfo>
-              <p>
-                Hello <strong onClick={handleUsernameClick}>{username}</strong>
-              </p>
-              {!isLoading && <button onClick={handleLogout}> Logout </button>}
-            </Userinfo>
-          </Header>
-        </div>
-        <div style={{ flex: '1 0 auto' }}>
-          <WrappedComponent />
-        </div>
-      </Wrapper>
+      <UserLayout
+        WrappedComponent={WrappedComponent}
+        username={username || 'null-user'}
+        handleUsernameClick={handleUsernameClick}
+        handleLogoutClick={handleLogout}
+        isLoading={isLoading}
+      />
     );
   };
 };

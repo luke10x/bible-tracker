@@ -14,7 +14,7 @@ const Chapters = styled.div`
   flex-wrap: wrap;
   .chapter-box {
     flex: 0 0 60px;
-    border: 1px solid blue;
+    border: 1px solid #ccccff;
     height: 40px;
 
     display: flex;
