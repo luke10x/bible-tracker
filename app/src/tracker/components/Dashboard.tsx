@@ -22,6 +22,11 @@ const Chapters = styled.div`
     justify-content: center;
     border-radius: 5px;
     background: #e2e5e6;
+    &:hover {
+      background: #f2f5f6;
+    }
+    cursor: pointer;
+
     div {
       height: 50%;
       width: 50%;
@@ -42,9 +47,9 @@ const Part: React.FC<PartProps> = ({ title, books }: PartProps) => {
               {Array.from(Array(book.chapters).keys())
                 .map((x) => x + 1)
                 .map((ch) => (
-                  <div className="chapter-box" key={ch}>
+                  <button className="chapter-box" key={ch}>
                     <div>{ch}</div>
-                  </div>
+                  </button>
                 ))}
             </Chapters>
           </section>
