@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { authenticated } from '../../components/auth/authenticated';
 import { BookInfo, hebrewScriptures, newTestament } from '../structure';
@@ -47,9 +48,15 @@ const Part: React.FC<PartProps> = ({ title, books }: PartProps) => {
               {Array.from(Array(book.chapters).keys())
                 .map((x) => x + 1)
                 .map((ch) => (
-                  <button className="chapter-box" key={ch}>
+                  <Link
+                    to={`/bible/${book.title
+                      .replace(' ', '-')
+                      .toLowerCase()}/${ch}`}
+                    className="chapter-box"
+                    key={ch}
+                  >
                     <div>{ch}</div>
-                  </button>
+                  </Link>
                 ))}
             </Chapters>
           </section>

@@ -7,6 +7,7 @@ import { Welcome } from '../components/auth/Welcome';
 import { AuthProvider } from '../providers/authProvider';
 import { SilentRenew } from '../components/auth/SilentRenew';
 import { Dashboard } from '../tracker/components/Dashboard';
+import { Chapter } from '../tracker/components/Chapter';
 
 class App extends React.Component {
   public render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/tasks" component={Tasks} />
               <Route exact path="/dashboard" component={Dashboard} />
+              <Route path="/bible/:book/:chapter" component={Chapter} />
               <Route exact path="/signin-callback.html" component={Welcome} />
               <Route exact path="/silent-renew.html" component={SilentRenew} />
               <Route exact path="/" component={Public} />

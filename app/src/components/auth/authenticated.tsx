@@ -17,10 +17,10 @@ const StyledSpin = styled.div`
   background: red;
 `;
 
-export const authenticated = (
-  WrappedComponent: React.ComponentType,
-): React.FC => {
-  return () => {
+export function authenticated<PropType>(
+  WrappedComponent: React.ComponentType<PropType>,
+) {
+  return (props: PropType) => {
     const authService: AuthService = useContext(AuthContext);
     const [user, setUser] = useState<User>();
 
@@ -62,9 +62,15 @@ export const authenticated = (
       user && console.log('access_token details', parseJwt(user.access_token));
     };
 
+    const WithProps = () => (
+      <>
+        <WrappedComponent {...props} />
+      </>
+    );
+
     return (
       <UserLayout
-        WrappedComponent={WrappedComponent}
+        WrappedComponent={WithProps}
         username={username || 'null-user'}
         handleUsernameClick={handleUsernameClick}
         handleLogoutClick={handleLogout}
@@ -72,4 +78,4 @@ export const authenticated = (
       />
     );
   };
-};
+}
