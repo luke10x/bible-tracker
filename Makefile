@@ -8,7 +8,7 @@ up-sync:
 	docker-compose up -d --force-recreate sync
 
 up-getaway:
-	docker-compose up -d --force-recreate sync
+	docker-compose up -d --force-recreate getaway
 
 up: up-app up-auth up-sync up-getaway
 
