@@ -10,6 +10,10 @@ const ActivityRecordFormInner: React.FC<ActivityRecordFormProps> = (
   props: ActivityRecordFormProps,
 ) => {
   const { book, chapter } = props;
-  return <div></div>;
+  return (
+    <div>
+      {book}, {chapter}
+    </div>
+  );
 };
 export const ActivityRecordForm = authenticated(ActivityRecordFormInner);

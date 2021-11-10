@@ -13,3 +13,12 @@ To run it for first time:
 Later you can run it without `install`:
 
     make up logs
+
+## Troubleshooting
+
+Gateway chashes. It may be because of other services not started yet so proxy creation fails.
+try just re-running
+
+    make up-gateway
+
+in a little while, in another tab.
