@@ -84,31 +84,41 @@ export const newTestament: BookInfo[] = possibleTitles.slice(39).map((x) => {
   return { id: i, title: x, chapters: booksToChaptersMap[x] };
 });
 
-export const isBookTitle = (
+export const getBookTitleFromSlug = (
   bookTitle: BookTitle | unknown,
-): bookTitle is BookTitle => {
-  return possibleTitles.find((x) => bookTitle === x) !== undefined;
+): BookTitle => {
+  if (typeof bookTitle !== 'string') {
+    throw new Error(`Booktitle ${bookTitle} is not even string`);
+  }
+
+  const found = possibleTitles.find(
+    (x) => bookTitle === x.replace(' ', '-').toLowerCase(),
+  );
+
+  if (found === undefined) {
+    throw new Error('There is not such book title:${bookParam}');
+  }
+
+  return found;
 };
 
-// Probably is the worst possible usage of user-defined type guard
-// but it is so beautiful...
-export const isChapterInABook = (
+export const getChapterFromSlug = (
   chapter: number | unknown,
   book: BookTitle,
-): chapter is number => {
+): number => {
   if (isNaN(Number(chapter))) {
-    return false;
+    throw new Error(`Chapter "${chapter}" is not a number`);
   }
-  if (!Number.isInteger(chapter)) {
-    return false;
+  if (!Number.isInteger(Number(chapter))) {
+    throw new Error(`Chapter "${chapter}" is not integer`);
   }
   if (Number(chapter) > booksToChaptersMap[book]) {
-    return false;
+    throw new Error(`Chapter "${chapter}" is too hight`);
   }
   if (Number(chapter) < 1) {
-    return false;
+    throw new Error(`Chapter "${chapter}" is too low`);
   }
-  return true;
+  return Number(chapter);
 };
 
 export interface BookInfo {

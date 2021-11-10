@@ -1,7 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import { authenticated } from '../../components/auth/authenticated';
-import { BookTitle, isBookTitle, isChapterInABook } from '../structure';
+import {
+  BookTitle,
+  getBookTitleFromSlug,
+  getChapterFromSlug,
+} from '../structure';
 import { ActivityRecordForm } from './ActivityRecordForm';
 
 interface ChapterParams {
@@ -13,17 +17,8 @@ const ChapterInner: React.FC = () => {
   const { book: bookParam, chapter: chapterParam } =
     useParams() as ChapterParams;
 
-  if (!isBookTitle(bookParam)) {
-    throw new Error('There is not such book title:${bookParam}');
-  }
-
-  const book: BookTitle = bookParam;
-
-  if (!isChapterInABook(chapterParam, bookParam)) {
-    throw new Error(`Book "${book}" has no such chapter: ${chapterParam}`);
-  }
-
-  const chapter: number = chapterParam;
+  const book: BookTitle = getBookTitleFromSlug(bookParam);
+  const chapter: number = getChapterFromSlug(chapterParam, book);
 
   return (
     <div>

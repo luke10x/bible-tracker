@@ -1,12 +1,10 @@
 import React from 'react';
-import { authenticated } from '../../components/auth/authenticated';
-
 interface ActivityRecordFormProps {
   book: string;
   chapter: number;
 }
 
-const ActivityRecordFormInner: React.FC<ActivityRecordFormProps> = (
+export const ActivityRecordForm: React.FC<ActivityRecordFormProps> = (
   props: ActivityRecordFormProps,
 ) => {
   const { book, chapter } = props;
@@ -16,4 +14,3 @@ const ActivityRecordFormInner: React.FC<ActivityRecordFormProps> = (
     </div>
   );
 };
-export const ActivityRecordForm = authenticated(ActivityRecordFormInner);
