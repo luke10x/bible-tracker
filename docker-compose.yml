@@ -8,6 +8,7 @@ services:
     working_dir: "/mnt/sync"
     environment:
       PORT: '3000'
+      DB_URL: ${DB_URL:-mongodb://mongouser:mongopassword@mongo:27017/urlstore}
     entrypoint: "/bin/bash -c"
     command:
       - |
@@ -55,6 +56,15 @@ services:
         npm install
         npm run start
     ports: [ 19229:19229 ]
+
+  mongo:
+    image: mongo
+    volumes:
+      - "./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    environment:
+      MONGO_USERNAME: mongouser
+      MONGO_PASSWORD: mongopassword
+      MONGO_DATABASE: bible-tracker
 
   getaway:
     image: nginx

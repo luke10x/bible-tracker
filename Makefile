@@ -10,7 +10,10 @@ up-sync:
 up-getaway:
 	docker-compose up -d --force-recreate getaway
 
-up: up-app up-auth up-sync up-getaway
+up-mongo:
+	docker-compose up -d --force-recreate mongo
+
+up: up-app up-auth up-sync up-getaway up-mongo
 
 logs:
 	docker-compose logs -f
@@ -37,6 +40,9 @@ into-sync:
 
 into-getaway:
 	docker-compose exec getaway bash
+
+into-mongo-db:
+	docker-compose exec mongo mongo bible-tracker
 
 unrootify:
 	sudo chown -R $$(id -u):$$(id -g) .
