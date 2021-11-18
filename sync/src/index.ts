@@ -15,10 +15,10 @@ app.use(express.json());
 app.get( "/", async ( req, res ) => {
   const userCollection: Collection<Document> = await getCollection();
 
-  const activities = await userCollection.find({})
-      .sort({ code: -1 })
-      .toArray();
-  res.send( activities );
+  const user = await userCollection
+    .findOne({ userId: hardcodedUserId });
+
+  res.send( user.activities );
 });
 
 app.post("/", async (req, res) => {
