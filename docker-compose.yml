@@ -8,7 +8,7 @@ services:
     working_dir: "/mnt/sync"
     environment:
       PORT: '3000'
-      DB_URL: ${DB_URL:-mongodb://mongouser:mongopassword@mongo:27017/urlstore}
+      DB_URL: ${DB_URL:-mongodb://mongouser:mongopassword@mongo:27017/bible-tracker}
     entrypoint: "/bin/bash -c"
     command:
       - |

@@ -16,12 +16,16 @@ Later you can run it without `install`:
 
 ## BFF
 
-Sync service is a Restful BFF.
+Sync service is a Restiful BFF.
 
-Supported methods:
+Supported methods 1 - POST:
 
-    curl -XPOST http://localhost:3003 \
-        -d'{start: '2001-01-01T11:11:11', end: '2001-01-01T12:12:12', book: "genesis", chapter: 1}'
+    curl -XPOST -k https://localhost:3003  -H 'Content-Type: application/json' \
+      -d'{"start": "2001-01-01T11:11:11", "end": "2001-01-01T12:12:12", "book": "genesis", "chapter": 1}'
+
+Supported methods 2 - GET:
+
+    curl -XGET -k https://localhost:3003
 
 ## Troubleshooting
 

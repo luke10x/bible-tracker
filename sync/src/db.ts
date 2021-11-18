@@ -1,8 +1,8 @@
-import { MongoClient } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 
 let db = undefined;
 
-const loadDb = async (dbUrl: string, dbName: string) => {
+const loadDb = async (dbUrl: string, dbName: string): Promise<Db> => {
   if (db !== undefined) {
     return db;
   }
@@ -18,7 +18,8 @@ const loadDb = async (dbUrl: string, dbName: string) => {
   );
   const client = (await mongoClientPromise) as MongoClient;
 
-  return client.db(dbName);
+  db = client.db(dbName);
+  return db;
 };
 
 export const getCollectionClosure = (dbUrl: string, dbName: string, collection: string) => {
