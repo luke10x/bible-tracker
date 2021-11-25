@@ -18,7 +18,7 @@ app.get( "/", async ( req, res ) => {
   const user = await userCollection
     .findOne({ userId: hardcodedUserId });
 
-  res.send( user.activities );
+  res.send( user?.activities || []);
 });
 
 app.post("/", async (req, res) => {
