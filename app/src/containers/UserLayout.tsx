@@ -21,7 +21,11 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 10px;
 `;
+
 const Header = styled.div`
   flex: 1 0 auto;
   display: flex;
