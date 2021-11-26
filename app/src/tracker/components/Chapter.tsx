@@ -30,14 +30,12 @@ const ChapterInner: React.FC = () => {
 
   const authService = useContext(AuthContext);
   useEffect(() => {
-    const atp = getAccessTokenProvider(authService);
-
-    atp((accessToken: string) => {
+    getAccessTokenProvider(authService)((accessToken: string) => {
       return fetchChapterRecords(accessToken, {
         book: bookParam || '',
         chapter: chapter,
-      }).then((chapterRecords) => {
-        setChapterRecords(chapterRecords as ActivityRecord[]);
+      }).then((chapterRecords: ActivityRecord[]) => {
+        setChapterRecords(chapterRecords);
         console.log({ chapterRecords });
       });
     });
