@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { authenticated } from '../../components/auth/authenticated';
 import { AuthContext } from '../../providers/authProvider';
-import { AuthenticatedService } from '../../services/AuthenticatedService';
+import { getAccessTokenProvider } from '../../services/getAccessTokenProvider';
 import {
   ActivityRecord,
   fetchChapterRecords,
-  FetchChapterRecordsRequest,
 } from '../services/fetchChapterRecords';
 import {
   BookTitle,
@@ -31,21 +30,20 @@ const ChapterInner: React.FC = () => {
 
   const authService = useContext(AuthContext);
   useEffect(() => {
-    const authenticatedService = new AuthenticatedService<
-      FetchChapterRecordsRequest,
-      ActivityRecord[]
-    >(authService, fetchChapterRecords);
-    console.log({ authenticatedService });
+    const atp = getAccessTokenProvider(authService);
 
-    authenticatedService
-      .callWithAccessToken({
+    atp((accessToken: string) => {
+      return fetchChapterRecords(accessToken, {
         book: bookParam || '',
         chapter: chapter,
-      })
-      .then((chapterRecords) => {
+      }).then((chapterRecords) => {
         setChapterRecords(chapterRecords as ActivityRecord[]);
         console.log({ chapterRecords });
       });
+    });
+    return () => {
+      setChapterRecords([]);
+    };
   }, []);
 
   return (
@@ -53,6 +51,10 @@ const ChapterInner: React.FC = () => {
       <h2>
         {book}, {chapter}
       </h2>
+      {chapterRecords.length === 0 && (
+        <div>No records for this chapter so far...</div>
+      )}
+
       {chapterRecords.map((ar: ActivityRecord, i: number) => (
         <div key={i}>
           {ar.start} - {ar.end} {ar.note}
