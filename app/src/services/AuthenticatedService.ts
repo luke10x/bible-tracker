@@ -6,6 +6,7 @@ import AuthService from './authService';
 
 // type SecureServiceCall = (accessToken: string, request: RQ) => Promise<RS>;
 
+// TODO DONT USE AND REMOVE THIS FILE
 export class AuthenticatedService<RQ, RS> {
   // private authService: AuthService;
   private serviceCall: (_accessToken: string, _request: RQ) => Promise<RS>;

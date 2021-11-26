@@ -9,6 +9,7 @@ export class ApiService {
     this.authService = new AuthService();
   }
 
+  // TODO DONT USE AND REMOVE THIS FILE
   // TODO: Convert callbacks to promises
   // https://zellwk.com/blog/converting-callbacks-to-promises/
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
