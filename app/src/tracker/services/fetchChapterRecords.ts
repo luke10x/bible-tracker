@@ -1,11 +1,9 @@
-import { BookTitle } from '../structure';
-
 export interface FetchChapterRecordsRequest {
   book: string;
   chapter: number;
 }
 export interface ActivityRecord {
-  book: BookTitle;
+  book: string;
   chapter: number;
   note: string;
   start: string;

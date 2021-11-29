@@ -7,12 +7,16 @@ import {
   ActivityRecord,
   fetchChapterRecords,
 } from '../services/fetchChapterRecords';
+import { postActivityRecord } from '../services/postActivityRecord';
 import {
   BookTitle,
   getBookTitleFromSlug,
   getChapterFromSlug,
 } from '../structure';
-import { ActivityRecordForm } from './ActivityRecordForm';
+import {
+  ActivityRecordForm,
+  ActivityRecordFormState,
+} from './ActivityRecordForm';
 
 interface ChapterParams {
   book?: string;
@@ -44,6 +48,22 @@ const ChapterInner: React.FC = () => {
     };
   }, []);
 
+  const handleActivitySave = (arfs: ActivityRecordFormState) => {
+    const newChapterRecord: ActivityRecord = {
+      book: bookParam || '',
+      chapter,
+      start: arfs.start.toISOString(),
+      end: arfs.end.toISOString(),
+      note: arfs.note,
+    };
+    setChapterRecords([...chapterRecords, newChapterRecord]);
+
+    getAccessTokenProvider(authService)((accessToken: string) => {
+      postActivityRecord(accessToken, newChapterRecord);
+      return Promise.resolve();
+    });
+  };
+
   return (
     <div>
       <h2>
@@ -59,7 +79,11 @@ const ChapterInner: React.FC = () => {
         </div>
       ))}
 
-      <ActivityRecordForm book={book} chapter={chapter} />
+      <ActivityRecordForm
+        book={book}
+        chapter={chapter}
+        onSave={handleActivitySave}
+      />
     </div>
   );
 };

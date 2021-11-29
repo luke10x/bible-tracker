@@ -1,5 +1,5 @@
 import moment, { Moment } from 'moment';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
@@ -58,15 +58,17 @@ const StyledDatetime = styled(Datetime)`
     background: lightblue;
   }
 `;
-interface ActivityRecordFormProps {
-  book: string;
-  chapter: number;
-}
 
-interface ActivityRecordFormState {
+export interface ActivityRecordFormState {
   start: Moment;
   end: Moment;
   note: string;
+}
+
+interface ActivityRecordFormProps {
+  book: string;
+  chapter: number;
+  onSave: (state: ActivityRecordFormState) => void;
 }
 
 export const ActivityRecordForm: React.FC<ActivityRecordFormProps> = (
@@ -89,7 +91,13 @@ export const ActivityRecordForm: React.FC<ActivityRecordFormProps> = (
     setState({ ...state, end: m });
     console.log('end date: ', m);
   };
-  const { book, chapter } = props;
+  const handleNoteChanged = (evt: FormEvent<HTMLInputElement>) => {
+    const note = (evt.target && (evt.target as HTMLInputElement).value) || '';
+    setState({ ...state, note });
+    console.log('new note: ', note);
+  };
+
+  const { book, chapter, onSave } = props;
   return (
     <div>
       {book}, {chapter}
@@ -113,12 +121,16 @@ export const ActivityRecordForm: React.FC<ActivityRecordFormProps> = (
         </div>
         <div className="colspan">
           <label>note</label>
-          <input />
+          <input value={state.note} onChange={handleNoteChanged} />
         </div>
         <div className="button">
           <label>&nbsp;</label>
 
-          <input type="submit" value="Add record" />
+          <input
+            type="submit"
+            value="Add record"
+            onClick={() => onSave(state)}
+          />
         </div>
       </Form>
     </div>
