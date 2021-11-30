@@ -70,11 +70,13 @@ export const ActivityRecordForm: React.FC<ActivityRecordFormProps> = (
 ) => {
   const now = moment();
 
-  const [state, setState] = useState<ActivityRecordFormState>({
+  const defaultState = {
     start: now,
     end: now,
     note: '',
-  });
+  };
+
+  const [state, setState] = useState<ActivityRecordFormState>(defaultState);
   const handleStartChanged = (d: string | Moment) => {
     const m = moment(d);
     setState({ ...state, start: m });
@@ -123,7 +125,10 @@ export const ActivityRecordForm: React.FC<ActivityRecordFormProps> = (
           <input
             type="button"
             value="Add record"
-            onClick={() => onSave(state)}
+            onClick={() => {
+              onSave(state);
+              setState(defaultState);
+            }}
           />
         </div>
       </Form>
