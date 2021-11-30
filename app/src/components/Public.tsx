@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from '../auth/providers/authProvider';
 import AuthService from '../auth/services/authService';
-import logo from './logo.svg';
+import logo from '../logo.svg';
 
 const Wrapper = styled.div`
   text-align: center;
@@ -32,7 +32,7 @@ export const Public: React.FC = () => {
     <Wrapper>
       <Logo src={logo} alt="logo" />
       <Content>
-        <p>TODO software</p>
+        <p>Personal Bible Study Tracker</p>
         {!isLoading && (
           <button onClick={handleLoginButton}>Go to Login screen</button>
         )}

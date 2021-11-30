@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../logo.svg';
 
@@ -24,6 +25,9 @@ const Wrapper = styled.div`
   max-width: 960px;
   margin: 0 auto;
   padding: 10px;
+  .logoutBtn {
+    padding: 5px;
+  }
 `;
 
 const Header = styled.div`
@@ -56,13 +60,18 @@ export const UserLayout: React.FC<UserLayoutProps> = (
     <Wrapper>
       <div style={{ flexShrink: 0 }}>
         <Header>
-          <Logo src={logo} alt="logo" />
+          <Link to="/dashboard">
+            <Logo src={logo} alt="logo" />
+          </Link>
           <Userinfo>
             <p>
               Hello <strong onClick={handleUsernameClick}>{username}</strong>
             </p>
             {!isLoading && (
-              <button onClick={handleLogoutClick}> Logout </button>
+              <button onClick={handleLogoutClick} className="logoutBtn">
+                {' '}
+                Logout{' '}
+              </button>
             )}
           </Userinfo>
         </Header>
