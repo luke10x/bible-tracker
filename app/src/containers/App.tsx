@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './App.css';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import { Tasks } from '../components/tasks/Tasks';
 import { Public } from '../components/Public';
 import { Welcome } from '../components/auth/Welcome';
 import { AuthProvider } from '../providers/authProvider';
@@ -16,7 +15,6 @@ class App extends React.Component {
         <AuthProvider>
           <BrowserRouter basename="/">
             <Switch>
-              <Route exact path="/tasks" component={Tasks} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route path="/bible/:book/:chapter" component={Chapter} />
               <Route exact path="/signin-callback.html" component={Welcome} />
