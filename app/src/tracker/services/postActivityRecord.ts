@@ -1,4 +1,4 @@
-import { ActivityRecord } from './fetchChapterRecords';
+import { ActivityRecord } from './ActivityRecord';
 
 export const postActivityRecord = async (
   accessToken: string,

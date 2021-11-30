@@ -1,13 +1,8 @@
+import { ActivityRecord } from './ActivityRecord';
+
 export interface FetchChapterRecordsRequest {
   book: string;
   chapter: number;
-}
-export interface ActivityRecord {
-  book: string;
-  chapter: number;
-  note: string;
-  start: string;
-  end: string;
 }
 
 export const fetchChapterRecords = async (
