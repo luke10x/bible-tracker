@@ -20,8 +20,6 @@ const Form = styled.form`
 
   .colspan {
     box-sizing: border-box;
-
-    // border: 1px solid green;
     flex: 1 1 50%;
     input {
       box-sizing: border-box;
@@ -32,8 +30,6 @@ const Form = styled.form`
   }
   .button {
     box-sizing: border-box;
-
-    // border: 1px solid green;
     flex: 0 1 60px;
     input {
       box-sizing: border-box;
@@ -46,9 +42,7 @@ const Form = styled.form`
 const StyledDatetime = styled(Datetime)`
   input {
     box-sizing: border-box;
-
     width: 100%;
-    // border: 1px solid red;
   }
   .rdtPicker {
     box-sizing: border-box;
@@ -127,7 +121,7 @@ export const ActivityRecordForm: React.FC<ActivityRecordFormProps> = (
           <label>&nbsp;</label>
 
           <input
-            type="submit"
+            type="button"
             value="Add record"
             onClick={() => onSave(state)}
           />
