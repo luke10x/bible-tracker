@@ -1,6 +1,6 @@
 import React from 'react';
-import { AuthConsumer } from '../../providers/authProvider';
-import AuthService from '../../services/authService';
+import { AuthConsumer } from '../providers/authProvider';
+import AuthService from '../services/authService';
 
 export const SilentRenew: React.FC = () => (
   <AuthConsumer>

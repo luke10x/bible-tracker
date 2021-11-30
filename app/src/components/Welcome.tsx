@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { Constants } from '../../helpers/Constants';
-import { AuthContext } from '../../providers/authProvider';
-import AuthService from '../../services/authService';
+import { Constants } from '../helpers/Constants';
+import { AuthContext } from '../auth/providers/authProvider';
+import AuthService from '../auth/services/authService';
 
 const Wrapper = styled.div`
   height: 150px;

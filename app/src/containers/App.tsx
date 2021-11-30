@@ -2,9 +2,9 @@ import * as React from 'react';
 import './App.css';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { Public } from '../components/Public';
-import { Welcome } from '../components/auth/Welcome';
-import { AuthProvider } from '../providers/authProvider';
-import { SilentRenew } from '../components/auth/SilentRenew';
+import { Welcome } from '../components/Welcome';
+import { AuthProvider } from '../auth/providers/authProvider';
+import { SilentRenew } from '../auth/components/SilentRenew';
 import { Dashboard } from '../tracker/components/Dashboard';
 import { Chapter } from '../tracker/components/Chapter';
 

@@ -1,19 +1,9 @@
-/* eslint-env mocha */
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import { render } from '@testing-library/react';
 import App from './App';
 
-const storageMock = {
-  clear: jest.fn(),
-  getItem: jest.fn(),
-  setItem: jest.fn()
-};
-
-(global as any).sessionStorage = storageMock;
-(global as any).localStorage = storageMock;
-
-xit('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+test('renders learn react link', () => {
+  const { getByText } = render(<App />);
+  const linkElement = getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
 });

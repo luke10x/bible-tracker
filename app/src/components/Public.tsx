@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { AuthContext } from '../providers/authProvider';
-import AuthService from '../services/authService';
+import { AuthContext } from '../auth/providers/authProvider';
+import AuthService from '../auth/services/authService';
 import logo from './logo.svg';
 
 const Wrapper = styled.div`

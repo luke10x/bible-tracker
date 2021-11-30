@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { authenticated } from '../../components/auth/authenticated';
-import { AuthContext } from '../../providers/authProvider';
-import { getAccessTokenProvider } from '../../services/getAccessTokenProvider';
+import { authenticated } from '../../auth/components/authenticated';
+import { AuthContext } from '../../auth/providers/authProvider';
+import { getAccessTokenProvider } from '../../auth/services/getAccessTokenProvider';
 import {
   ActivityRecord,
   fetchChapterRecords,

@@ -1,8 +1,8 @@
 /* eslint-disable react/display-name */
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import AuthService from '../../services/authService';
-import { AuthContext } from '../../providers/authProvider';
+import AuthService from '../services/authService';
+import { AuthContext } from '../providers/authProvider';
 import { User } from 'oidc-client';
 import { UserLayout } from '../../containers/UserLayout';
 
