@@ -150,11 +150,7 @@ const ChapterInner: React.FC = () => {
         ))}
       </Notes>
 
-      <ActivityRecordForm
-        book={book}
-        chapter={chapter}
-        onSave={handleActivitySave}
-      />
+      <ActivityRecordForm onSave={handleActivitySave} />
     </div>
   );
 };

@@ -60,8 +60,6 @@ export interface ActivityRecordFormState {
 }
 
 interface ActivityRecordFormProps {
-  book: string;
-  chapter: number;
   onSave: (state: ActivityRecordFormState) => void;
 }
 
@@ -93,10 +91,9 @@ export const ActivityRecordForm: React.FC<ActivityRecordFormProps> = (
     console.log('new note: ', note);
   };
 
-  const { book, chapter, onSave } = props;
+  const { onSave } = props;
   return (
     <div>
-      {book}, {chapter}
       <Form>
         <div className="column">
           <label>Start time</label>
