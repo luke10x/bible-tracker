@@ -8,7 +8,7 @@ up-sync:
 	docker-compose up -d --force-recreate sync
 
 up-getaway:
-	docker-compose up -d --force-recreate getaway
+	docker-compose up -d --force-recreate --build getaway
 
 up-mongo:
 	docker-compose up -d --force-recreate mongo

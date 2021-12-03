@@ -13,10 +13,7 @@ services:
     entrypoint: "/bin/bash -c"
     command:
       - |
-        CI=true npm start || (\
-          echo '⛔ `npm start` failed, but the container is running...' && \
-          tail -f /dev/null \
-        )
+        npm start
 
   app:
     image: node
@@ -26,18 +23,16 @@ services:
     environment:
       PORT: '3000'
       HTTPS: 'false'                                                                                                                                                                                                                                                            
+      NODE_OPTIONS: ${NODE_OPTIONS:-} # Hacks for the Chromebook will be added here
       REACT_APP_AUTH_URL: ${AUTH_URL:-https://auth.lvh.me:3002}
       REACT_APP_AUTH_CLIENT_ID: 'fooclient'
       REACT_APP_AUTH_AUDIENCE: 'not-used-here'
-      REACT_APP_URL: ${SPA_URL:-https://app.lvh.me:3001}
+      REACT_APP_URL: ${APP_URL:-https://app.lvh.me:3001}
       REACT_APP_API_URL: ${API_URL:-https://api.lvh.me:3003}
     entrypoint: "/bin/bash -c"
     command:
       - |
-        CI=true npm start || (\
-          echo '⛔ `npm start` failed, but the container is running...' && \
-          tail -f /dev/null \
-        )
+        CI=true npm start
 
   auth:
     image: node
@@ -50,16 +45,15 @@ services:
       AUTH_URL: ${AUTH_URL:-https://auth.lvh.me:3002}
       APP_URL: ${APP_URL:-https://app.lvh.me:3001}
       # Without this, it shows "no matching state in storage"
-      TZ: Europe/London
+      TZ: ${TZ:-Europe/London}
     entrypoint: '/bin/bash -c'
     command:
       - |
-        npm install
-        npm run start
+        npm start
     ports: [ 19229:19229 ]
 
   mongo:
-    image: mongo
+    image: mongo:4.4.10
     volumes:
       - "./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     environment:

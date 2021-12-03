@@ -5,23 +5,26 @@ const bodyParser = require('body-parser');
 const Provider = require('oidc-provider');
 const cors = require('cors');
 
-assert(process.env.AUTH_URL, 'process.env.AUTH_URL missing');
+assert(process.env.APP_URL, 'APP_URL missing');
+console.log(`APP_URL=${process.env.APP_URL}`);
+
+assert(process.env.AUTH_URL, 'AUTH_URL missing');
+console.log(`AUTH_URL=${process.env.AUTH_URL}`);
+
+assert(process.env.TZ, 'TZ missing');
+console.log(`TZ=${process.env.TZ}`);
+
 assert(process.env.PORT, 'process.env.PORT missing');
 assert(process.env.SECURE_KEY, 'process.env.SECURE_KEY missing, run `heroku addons:create securekey`');
 assert.equal(process.env.SECURE_KEY.split(',').length, 2, 'process.env.SECURE_KEY format invalid');
-// assert(process.env.REDIS_URL, 'process.env.REDIS_URL missing, run `heroku-redis:hobby-dev`');
 
-// const RedisAdapter = require('./redis_adapter');
 const jwks = require('./jwks.json');
 
 // simple account model for this application, user list is defined like so
 const Account = require('./account');
 
-console.log('auth url', process.env.AUTH_URL);
-
 const startAuth = () => {
 
-  console.log('auth awake');
   const clientSettings = {
     client_id: 'fooclient',
     redirect_uris: [

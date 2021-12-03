@@ -14,6 +14,15 @@ Later you can run it without `install`:
 
     make up logs
 
+## Running it on Chromebook 🔴🟡🟢🔵 
+
+To enable development URLs, source this:
+
+    export $(cat chromebook.env | xargs)
+
+Unfortunatelly, it is currently not possible to run MongoDb v5.0+
+on my Lenovo C330 Chromebook, this is why *mongo* container here is locked to v4.
+
 ## BFF
 
 Sync service is a Restiful BFF.

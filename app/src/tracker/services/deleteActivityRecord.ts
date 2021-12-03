@@ -1,3 +1,5 @@
+import { Constants } from '../../helpers/Constants';
+
 export const deleteActivityRecord = async (
   accessToken: string,
   uuid: string,
@@ -10,10 +12,8 @@ export const deleteActivityRecord = async (
     },
   };
 
-  fetch(`https://api.lvh.me:3003/${uuid}`, requestParams).catch(
-    (error: Error) => {
-      console.error('❌ Failed to delete activity record', error);
-      throw error;
-    },
-  );
+  fetch(`${Constants.apiRoot}/${uuid}`, requestParams).catch((error: Error) => {
+    console.error('❌ Failed to delete activity record', error);
+    throw error;
+  });
 };

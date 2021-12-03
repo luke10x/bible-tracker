@@ -1,3 +1,4 @@
+import { Constants } from '../../helpers/Constants';
 import { ActivityRecord } from './ActivityRecord';
 
 export const postActivityRecord = async (
@@ -14,7 +15,7 @@ export const postActivityRecord = async (
     body: JSON.stringify(activityRecord),
   };
 
-  fetch('https://api.lvh.me:3003/', requestParams).catch((error: Error) => {
+  fetch(`${Constants.apiRoot}/`, requestParams).catch((error: Error) => {
     console.error('❌ Failed to post activity record', error);
     throw error;
   });

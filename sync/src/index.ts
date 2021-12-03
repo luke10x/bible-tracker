@@ -1,8 +1,15 @@
 import * as express from 'express';
 import * as cors from 'cors';
+import * as assert from 'assert';
 import { getCollectionClosure } from './db';
 import { Collection, Document } from 'mongodb';
 import { authenticated } from './auth';
+
+assert(process.env.DB_URL, 'DB_URL missing');
+console.log(`DB_URL=${process.env.DB_URL.replace(/(mongodb:\/\/)[^@]+(.*)/g, '$1***$2')}`)
+
+assert(process.env.JWKS_URL, 'JWKS_URL missing');
+console.log(`JWKS_URL=${process.env.JWKS_URL}`);
 
 const getCollection = getCollectionClosure(process.env.DB_URL, 'bible-tracker', 'users');
 

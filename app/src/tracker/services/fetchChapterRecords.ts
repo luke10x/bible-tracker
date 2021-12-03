@@ -1,3 +1,4 @@
+import { Constants } from '../../helpers/Constants';
 import { ActivityRecord } from './ActivityRecord';
 
 export interface FetchChapterRecordsRequest {
@@ -15,7 +16,7 @@ export const fetchChapterRecords = async (
     },
   };
 
-  const response = await fetch('https://api.lvh.me:3003/', requestParams).catch(
+  const response = await fetch(`${Constants.apiRoot}/`, requestParams).catch(
     (error: Error) => {
       console.error('❌ Failed to fetch', error);
       throw error;
