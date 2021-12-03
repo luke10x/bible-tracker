@@ -9,6 +9,7 @@ services:
     environment:
       PORT: '3000'
       DB_URL: ${DB_URL:-mongodb://mongouser:mongopassword@mongo:27017/bible-tracker}
+      JWKS_URL: '${JWKS_URL:-http://auth:3000/jwks}'
     entrypoint: "/bin/bash -c"
     command:
       - |

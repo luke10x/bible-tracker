@@ -101,7 +101,9 @@ const startAuth = () => {
     try {
       const details = await oidc.interactionDetails(req, res);
       console.log('see what else is available to you for interaction views', details);
+
       const { uid, prompt, params } = details;
+      console.log('Prompt: ', JSON.stringify(prompt));
 
       const client = await oidc.Client.find(params.client_id);
 

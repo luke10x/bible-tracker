@@ -6,7 +6,7 @@ export const deleteActivityRecord = async (
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authentication: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   };
 

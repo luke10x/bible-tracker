@@ -11,7 +11,7 @@ export const fetchChapterRecords = async (
 ) => {
   const requestParams = {
     headers: {
-      Authentication: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
   };
 

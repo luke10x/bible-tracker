@@ -2,8 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 import { getCollectionClosure } from './db';
 import { Collection, Document } from 'mongodb';
-
-const hardcodedUserId = "luke10x";
+import { authenticated } from './auth';
 
 const getCollection = getCollectionClosure(process.env.DB_URL, 'bible-tracker', 'users');
 
@@ -12,22 +11,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get( "/", async ( req, res ) => {
+app.get( "/", authenticated, async ( req, res ) => {
   const userCollection: Collection<Document> = await getCollection();
 
   const user = await userCollection
-    .findOne({ userId: hardcodedUserId });
+    .findOne({ userId: req.params.userId });
 
   res.send( user?.activities || []);
 });
 
-app.post("/", async (req, res) => {
+app.post("/", authenticated, async (req, res) => {
   console.log("🆕 Posting new activity", req.body);
   const userCollection: Collection<Document> = await getCollection();
   await userCollection.updateOne(
-    { userId: hardcodedUserId },
+    { userId: req.params.userId },
     { 
-      $setOnInsert: { userId: hardcodedUserId },
+      $setOnInsert: { userId: req.params.userId },
       $push: { activities: req.body}
     },
     { upsert: true }
@@ -35,11 +34,11 @@ app.post("/", async (req, res) => {
   res.send("Activity added");
 });
 
-app.delete("/:uuid", async (req, res) => {
+app.delete("/:uuid", authenticated, async (req, res) => {
   console.log("✂️ Deleting activity", req.params.uuid);
   const userCollection: Collection<Document> = await getCollection();
   const result = await userCollection.updateOne(
-    { userId: hardcodedUserId },    
+    { userId: req.params.userId },    
     { 
       $pull: { activities: { uuid: req.params.uuid } }
     }

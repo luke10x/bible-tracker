@@ -9,7 +9,7 @@ export const postActivityRecord = async (
     headers: {
       'Content-Type': 'application/json',
 
-      Authentication: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(activityRecord),
   };
