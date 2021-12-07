@@ -1,4 +1,4 @@
-# My readings tracker
+# My Bible reading tracker
 
 ## How to run it?
 
