@@ -1,5 +1,7 @@
 # My Bible reading tracker
 
+Fullstack application for tracking your Bible reading progress
+
 ## How to run it?
 
 To run this locally make sure you have the following:
