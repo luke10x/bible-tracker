@@ -19,10 +19,13 @@ export const Welcome: React.FC = () => {
   const authService: AuthService = useContext(AuthContext);
 
   useEffect(() => {
-    authService.signinRedirectCallback().then((_user) => {
-      window.location.replace(Constants.afterWelcomeRoute);
-    });
-  }, [authService]);
+    setTimeout(() => {
+      authService.signinRedirectCallback().then((_user) => {
+        window.location.replace(Constants.afterWelcomeRoute);
+      });
+    }, 5000);
+    console.log('Give it 5s and redirect to the dashboard');
+  }, []);
 
   return <Wrapper>Welcome and redirecting...</Wrapper>;
 };
