@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Constants } from '../helpers/Constants';
 import { AuthContext } from '../auth/providers/authProvider';
 import AuthService from '../auth/services/authService';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   height: 150px;
