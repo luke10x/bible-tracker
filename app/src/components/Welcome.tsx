@@ -27,5 +27,10 @@ export const Welcome: React.FC = () => {
     console.log('Give it 5s and redirect to the dashboard');
   }, []);
 
-  return <Wrapper>Welcome and redirecting...</Wrapper>;
+  return (
+    <Wrapper>
+      <p>Welcome and redirecting...</p>
+      <Link to="/dashboard">(Click here if it does not redirect)</Link>
+    </Wrapper>
+  );
 };
