@@ -27,13 +27,19 @@ interface ChapterParams {
 }
 
 const Notes = styled.div`
+  & .underDeletion {
+    opacity: 0.4;
+  }
   > div {
     display: flex;
     flex-wrap: wrap;
+    span {
+      font-size: 0.7em;
+    }
     .date {
       flex: 0 1;
       background: lightblue;
-      padding: 3px;
+      padding: 4px;
       border-radius: 6px;
       white-space: nowrap;
     }
@@ -71,7 +77,9 @@ const ChapterInner: React.FC = () => {
   const book: BookTitle = getBookTitleFromSlug(bookParam);
   const chapter: number = getChapterFromSlug(chapterParam, book);
 
-  const [chapterRecords, setChapterRecords] = useState<ActivityRecord[]>([]);
+  const [chapterRecords, setChapterRecords] = useState<
+    ActivityRecord[] | undefined
+  >(undefined);
   const [underDeletion, setUnderDeletion] = useState<string | undefined>(
     undefined,
   );
@@ -90,7 +98,7 @@ const ChapterInner: React.FC = () => {
     return () => {
       setChapterRecords([]);
     };
-  }, [underDeletion]);
+  }, []);
 
   const handleActivitySave = (arfs: ActivityRecordFormState) => {
     const newChapterRecord: ActivityRecord = {
@@ -101,8 +109,8 @@ const ChapterInner: React.FC = () => {
       end: arfs.end.toISOString(),
       note: arfs.note,
     };
-    setChapterRecords([...chapterRecords, newChapterRecord]);
 
+    setChapterRecords([...(chapterRecords || []), newChapterRecord]);
     getAccessTokenProvider(authService)((accessToken: string) => {
       postActivityRecord(accessToken, newChapterRecord);
       return Promise.resolve();
@@ -110,11 +118,15 @@ const ChapterInner: React.FC = () => {
   };
 
   const handleActivityDelete = (uuid: string) => {
+    console.log('under-del', uuid);
+    setUnderDeletion(uuid);
     getAccessTokenProvider(authService)((accessToken: string) => {
-      deleteActivityRecord(accessToken, uuid);
-      setUnderDeletion(uuid);
+      deleteActivityRecord(accessToken, uuid).then(() => {
+        setUnderDeletion(undefined);
+        setChapterRecords(chapterRecords?.filter((r) => r.uuid !== uuid));
+      });
       return Promise.resolve();
-    }).then(() => setUnderDeletion(undefined));
+    });
   };
 
   return (
@@ -122,33 +134,41 @@ const ChapterInner: React.FC = () => {
       <h2>
         {book}, {chapter}
       </h2>
-      {chapterRecords.length === 0 && (
+      <h3>Activity Records</h3>
+      {chapterRecords === undefined && <div>Loading...</div>}
+      {chapterRecords && chapterRecords.length === 0 && (
         <div>No records for this chapter so far...</div>
       )}
       <Notes>
-        {chapterRecords.map((ar: ActivityRecord, i: number) => (
-          <div key={i}>
-            <span className="date">
-              {moment(ar.start).format('MM/DD/YYYY h:mm A')}
-            </span>
-            <span className="separator">-</span>
-            <span className="date">
-              {moment(ar.end).format('MM/DD/YYYY h:mm A')}
-            </span>{' '}
-            <span className="actions">
-              {underDeletion != ar.uuid && (
-                <button
-                  className="actions"
-                  onClick={() => handleActivityDelete(ar.uuid)}
-                >
-                  Delete
-                </button>
-              )}
-            </span>
-            <div>{ar.note}</div>
-          </div>
-        ))}
+        {chapterRecords &&
+          chapterRecords.map((ar: ActivityRecord, i: number) => (
+            <div
+              key={i}
+              className={underDeletion === ar.uuid ? 'underDeletion' : ''}
+            >
+              <span className="date">
+                {moment(ar.start).format('MM/DD/YYYY h:mm A')}
+              </span>
+              <span className="separator">-</span>
+              <span className="date">
+                {moment(ar.end).format('MM/DD/YYYY h:mm A')}
+              </span>{' '}
+              <span className="actions">
+                {underDeletion !== ar.uuid && (
+                  <button
+                    className="actions"
+                    onClick={() => handleActivityDelete(ar.uuid)}
+                  >
+                    Delete
+                  </button>
+                )}
+              </span>
+              <div>{ar.note}</div>
+            </div>
+          ))}
       </Notes>
+
+      <h3>Add a new Activity Record:</h3>
 
       <ActivityRecordForm onSave={handleActivitySave} />
     </div>

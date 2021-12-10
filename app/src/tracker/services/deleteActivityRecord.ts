@@ -12,8 +12,10 @@ export const deleteActivityRecord = async (
     },
   };
 
-  fetch(`${Constants.apiRoot}/${uuid}`, requestParams).catch((error: Error) => {
-    console.error('❌ Failed to delete activity record', error);
-    throw error;
-  });
+  await fetch(`${Constants.apiRoot}/${uuid}`, requestParams).catch(
+    (error: Error) => {
+      console.error('❌ Failed to delete activity record', error);
+      throw error;
+    },
+  );
 };
