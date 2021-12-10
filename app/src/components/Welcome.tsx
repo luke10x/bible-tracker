@@ -23,13 +23,20 @@ export const Welcome: React.FC = () => {
   }
 
   const authService: AuthService = useContext(AuthContext);
+  const [error, setError] = useState<Error | undefined>(undefined);
 
   const [user, setUser] = useState<User>();
   useEffect(() => {
-    authService.signinRedirectCallback().then((user) => {
-      setUser(user);
-      window.location.replace(Constants.afterWelcomeRoute);
-    });
+    authService
+      .signinRedirectCallback()
+      .then((user) => {
+        setUser(user);
+        window.location.replace(Constants.afterWelcomeRoute);
+      })
+      .catch((e) => {
+        console.error(e);
+        setError(error);
+      });
     console.log('Will redirect as soon the ');
   }, [user]);
 
@@ -43,6 +50,12 @@ export const Welcome: React.FC = () => {
             <a href={Constants.afterWelcomeRoute}>
               (If it does not redirect click here)
             </a>
+          </div>
+        )}
+        {error && (
+          <div>
+            <p>Error: {error}</p>
+            <a href={Constants.clientRoot}>Go back to login</a>
           </div>
         )}
       </div>
