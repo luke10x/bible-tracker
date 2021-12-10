@@ -1,15 +1,20 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Constants } from '../helpers/Constants';
 import { AuthContext } from '../auth/providers/authProvider';
 import AuthService from '../auth/services/authService';
-import { Link } from 'react-router-dom';
+import { User } from 'oidc-client';
 
 const Wrapper = styled.div`
-  height: 150px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+  height: 100%;
+  border: 1px solid red;
+  div {
+    text-align: center;
+    height: 100px;
+  }
 `;
 
 export const Welcome: React.FC = () => {
@@ -19,19 +24,25 @@ export const Welcome: React.FC = () => {
 
   const authService: AuthService = useContext(AuthContext);
 
+  const [user, setUser] = useState<User>();
   useEffect(() => {
-    setTimeout(() => {
-      authService.signinRedirectCallback().then((_user) => {
-        window.location.replace(Constants.afterWelcomeRoute);
-      });
-    }, 5000);
+    authService.signinRedirectCallback().then((user) => {
+      setUser(user);
+
+      window.location.replace(Constants.afterWelcomeRoute);
+    });
     console.log('Give it 5s and redirect to the dashboard');
-  }, []);
+  }, [user]);
 
   return (
     <Wrapper>
-      <p>Welcome and redirecting...</p>
-      <Link to="/dashboard">(Click here if it does not redirect)</Link>
+      <div>
+        Welcome and redirecting...
+        {user && <p>Logged in as {user.profile.name}</p>}
+        <a href={Constants.afterWelcomeRoute}>
+          (If it does not redirect click here)
+        </a>
+      </div>
     </Wrapper>
   );
 };
