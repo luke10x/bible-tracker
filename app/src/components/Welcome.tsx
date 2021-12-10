@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   justify-content: center;
   height: 100%;
   border: 1px solid red;
-  div {
+  & > div {
     text-align: center;
     height: 100px;
   }
@@ -28,20 +28,23 @@ export const Welcome: React.FC = () => {
   useEffect(() => {
     authService.signinRedirectCallback().then((user) => {
       setUser(user);
-
       window.location.replace(Constants.afterWelcomeRoute);
     });
-    console.log('Give it 5s and redirect to the dashboard');
+    console.log('Will redirect as soon the ');
   }, [user]);
 
   return (
     <Wrapper>
       <div>
         Welcome and redirecting...
-        {user && <p>Logged in as {user.profile.name}</p>}
-        <a href={Constants.afterWelcomeRoute}>
-          (If it does not redirect click here)
-        </a>
+        {user && (
+          <div>
+            <p>Logged in as {user.profile.name}</p>
+            <a href={Constants.afterWelcomeRoute}>
+              (If it does not redirect click here)
+            </a>
+          </div>
+        )}
       </div>
     </Wrapper>
   );
