@@ -15,7 +15,7 @@ export const postActivityRecord = async (
     body: JSON.stringify(activityRecord),
   };
 
-  fetch(`${Constants.apiRoot}/`, requestParams).catch((error: Error) => {
+  await fetch(`${Constants.apiRoot}/`, requestParams).catch((error: Error) => {
     console.error('❌ Failed to post activity record', error);
     throw error;
   });

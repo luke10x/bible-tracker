@@ -25,13 +25,23 @@ export const Welcome: React.FC = () => {
   const authService: AuthService = useContext(AuthContext);
   const [error, setError] = useState<Error | undefined>(undefined);
 
+  const t = sessionStorage.getItem('go_t');
+  const c = sessionStorage.getItem('go_c');
+
+  const redirectRoute =
+    t !== null && c !== null
+      ? `/go?t=${t}&c=${c}&redir=true`
+      : Constants.afterWelcomeRoute;
+
   const [user, setUser] = useState<User>();
   useEffect(() => {
     authService
       .signinRedirectCallback()
       .then((user) => {
         setUser(user);
-        window.location.replace(Constants.afterWelcomeRoute);
+        sessionStorage.removeItem('go_t');
+        sessionStorage.removeItem('go_c');
+        window.location.replace(redirectRoute);
       })
       .catch((e) => {
         console.error(e);
