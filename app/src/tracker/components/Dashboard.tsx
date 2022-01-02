@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { authenticated } from '../../auth/components/authenticated';
+import { AuthContext } from '../../auth/providers/authProvider';
+import { getAccessTokenProvider } from '../../auth/services/getAccessTokenProvider';
+import {
+  CountsMap,
+  fetchChapterRecordCounts,
+} from '../services/fetchChapterRecordCounts';
 import { BookInfo, hebrewScriptures, newTestament } from '../structure';
 
 interface PartProps {
   title: string;
   books: BookInfo[];
+  counts: CountsMap | undefined;
 }
 
 const Chapters = styled.div`
@@ -23,6 +30,9 @@ const Chapters = styled.div`
     justify-content: center;
     border-radius: 5px;
     background: #e2e5e6;
+    &.red {
+      background: #a2ffa6;
+    }
     &:hover {
       background: #f2f5f6;
     }
@@ -36,7 +46,7 @@ const Chapters = styled.div`
   }
 `;
 
-const Part: React.FC<PartProps> = ({ title, books }: PartProps) => {
+const Part: React.FC<PartProps> = ({ title, books, counts }: PartProps) => {
   return (
     <div>
       <h2>{title}</h2>
@@ -47,17 +57,21 @@ const Part: React.FC<PartProps> = ({ title, books }: PartProps) => {
             <Chapters>
               {Array.from(Array(book.chapters).keys())
                 .map((x) => x + 1)
-                .map((ch) => (
-                  <Link
-                    to={`/bible/${book.title
-                      .replace(' ', '-')
-                      .toLowerCase()}/${ch}`}
-                    className="chapter-box"
-                    key={ch}
-                  >
-                    <div>{ch}</div>
-                  </Link>
-                ))}
+                .map((ch) => {
+                  const lower = book.title.replace(' ', '-').toLowerCase();
+                  return (
+                    <Link
+                      to={`/bible/${lower}/${ch}`}
+                      className={
+                        'chapter-box' +
+                        (counts && counts[`${lower}-${ch}`] > 0 ? ' red' : '')
+                      }
+                      key={ch}
+                    >
+                      <div>{ch}</div>
+                    </Link>
+                  );
+                })}
             </Chapters>
           </section>
         );
@@ -67,11 +81,29 @@ const Part: React.FC<PartProps> = ({ title, books }: PartProps) => {
 };
 
 const DashboardInner: React.FC = () => {
-  // console.log({ books });
+  const [counts, setCounts] = useState<CountsMap | undefined>(undefined);
+  const authService = useContext(AuthContext);
+
+  useEffect(() => {
+    getAccessTokenProvider(authService)((accessToken: string) => {
+      return fetchChapterRecordCounts(accessToken).then((cc: CountsMap) => {
+        setCounts(cc);
+        console.log({ cc });
+      });
+    });
+    return () => {
+      setCounts({});
+    };
+  }, []);
+  console.log({ counts });
   return (
     <div>
-      <Part title="Hebrew Scriptures" books={hebrewScriptures} />
-      <Part title="The New Testament" books={newTestament} />
+      <Part
+        title="Hebrew Scriptures"
+        books={hebrewScriptures}
+        counts={counts}
+      />
+      <Part title="The New Testament" books={newTestament} counts={counts} />
     </div>
   );
 };
