@@ -29,6 +29,7 @@ services:
       REACT_APP_AUTH_AUDIENCE: 'not-used-here'
       REACT_APP_URL: ${APP_URL:-https://app.lvh.me:3001}
       REACT_APP_API_URL: ${API_URL:-https://api.lvh.me:3003}
+      NODE_OPTIONS: --openssl-legacy-provider
     entrypoint: "/bin/bash -c"
     command:
       - |
